@@ -4,33 +4,36 @@ import time
 
 
 def format_number(num):
-    # ÅĞ¶Ï²¢¸ñÊ½»¯ÎªÖĞÎÄµ¥Î»Êä³ö
-    if num >= 1_000_000_00:  # ÒÚ
-        return f"{num / 1_000_000_00:.0f}ÒÚ"
-    elif num >= 1_0000:  # Íò
-        return f"{num / 1_0000:.0f}Íò"
+    # åˆ¤æ–­å¹¶æ ¼å¼åŒ–ä¸ºä¸­æ–‡å•ä½è¾“å‡º
+    if num >= 1_000_000_00:  # äº¿
+        return f"{num / 1_000_000_00:.0f}äº¿"
+    elif num >= 1_0000:  # ä¸‡
+        return f"{num / 1_0000:.0f}ä¸‡"
     else:
         return str(num)
 
 
-pull = 1000000000  # ²âÊÔ³éÊı
+pull = 1000000000  # æµ‹è¯•æŠ½æ•°
+player_pull = 2000  # åˆ†é…ç»™å„ç©å®¶çš„æŠ½æ•°
+pull = int(input("è¾“å…¥æ€»æŠ½æ•°ï¼š"))
+player_pull = int(input("è¾“å…¥åˆ†é…ç»™æ¯ä¸ªç©å®¶çš„æŠ½æ•°ï¼š"))
 formatted_pull = format_number(pull)
 
-print("Ô­Éñ³é¿¨", formatted_pull, "³é£¬Æô¶¯£¡")
+print("åŸç¥æŠ½å¡", formatted_pull, "æŠ½ï¼Œå¯åŠ¨ï¼")
 
-range_c = 0.6  # ³ö½ğÂÊ
-range_cc = 0.33  # up½ÇÉ«³öÂÊ
+range_c = 0.6  # å‡ºé‡‘ç‡
+range_cc = 0.33  # upè§’è‰²å‡ºç‡
 range_w = 0.8  # 0.7
 range_ww = 0.6  # 0.525
 range_www = 0.2625
-range_f = 5.1  # ³ö×ÏÂÊ
-range_ff = 0.85  # Ä³Ò»upËÄĞÇ³öÂÊ
+range_f = 5.1  # å‡ºç´«ç‡
+range_ff = 0.85  # æŸä¸€upå››æ˜Ÿå‡ºç‡
 f = ff = 0
 lose = lose_f = 0
-z = 0  # ¸ÅÂÊÀÛ¼Ó´ÎÊı
-wc = wc_f = 0  # up½ÇÉ«Êı
-ww = 0  # upÎäÆ÷Êı
-wdg = 0  # ¶¨¹ìÎäÆ÷Êı
+z = 0  # æ¦‚ç‡ç´¯åŠ æ¬¡æ•°
+wc = wc_f = 0  # upè§’è‰²æ•°
+ww = 0  # upæ­¦å™¨æ•°
+wdg = 0  # å®šè½¨æ­¦å™¨æ•°
 c = 0
 cc = 0
 wai = 0
@@ -39,21 +42,20 @@ buwai = 0
 max_buwai = 0
 all_wai = 0
 multiple = multiple_2 = multiple_3 = multiple_4 = multiple_5 = multiple_6 = multiple_7 = multiple_8 = multiple_9 = multiple_10 = 0
-light = 1  # ²¶»ñÃ÷¹â¼ÆÊıÆ÷
+light = 1  # æ•è·æ˜å…‰è®¡æ•°å™¨
 double = 0
 up_max = 0
-n = 0  # ±éÀú´ÎÊı£¨µÚnÖÖ¿ÉÄÜĞÔ£©
-x = x_f = 0  # ÏûºÄÔ­Ê¯³¬¶î´ÎÊı
+n = 0  # éå†æ¬¡æ•°ï¼ˆç¬¬nç§å¯èƒ½æ€§ï¼‰
+x = x_f = 0  # æ¶ˆè€—åŸçŸ³è¶…é¢æ¬¡æ•°
 pull_num = 0
-pull_c = 0  # ½ÇÉ«£¨Ãü×ùËùÓÃ³éÊı£©
-pull_w = 0  # ÎäÆ÷ËùÓÃ³éÊı
-price = 160  # Ã¿³éÏûºÄÔ­Ê¯
-pull_cost = pull_cost_f = 0  # ×ÜÏûºÄ
-pull_cost_player = 0  # Íæ¼Ò×ÜÏûºÄ
-pull_cost_min = 1000000  # ×îÅ·Íæ¼ÒÆ½¾ùÏûºÄ
-pull_cost_max = 0  # ×î·ÇÍæ¼ÒÆ½¾ùÏûºÄ
-wc_player = 0  # Íæ¼Ò³ö½ğÊı
-player_pull = 2000  # ·ÖÅä¸ø¸÷Íæ¼ÒµÄ³éÊı
+pull_c = 0  # è§’è‰²ï¼ˆå‘½åº§æ‰€ç”¨æŠ½æ•°ï¼‰
+pull_w = 0  # æ­¦å™¨æ‰€ç”¨æŠ½æ•°
+price = 160  # æ¯æŠ½æ¶ˆè€—åŸçŸ³
+pull_cost = pull_cost_f = 0  # æ€»æ¶ˆè€—
+pull_cost_player = 0  # ç©å®¶æ€»æ¶ˆè€—
+pull_cost_min = 1000000  # æœ€æ¬§ç©å®¶å¹³å‡æ¶ˆè€—
+pull_cost_max = 0  # æœ€éç©å®¶å¹³å‡æ¶ˆè€—
+wc_player = 0  # ç©å®¶å‡ºé‡‘æ•°
 pull_min = 1000000
 pull_max = 0
 cost_min = 1000000
@@ -67,7 +69,7 @@ up = {}
 dg = {}
 
 
-# ¼ÆËãº¯Êı
+# è®¡ç®—å‡½æ•°
 def count(n, x, pull, pull_num, pull_cost, cost_min, cost_max):
     n += 1
     cost = pull_num * price
@@ -83,7 +85,7 @@ def count(n, x, pull, pull_num, pull_cost, cost_min, cost_max):
     return n, x, pull, pull_cost, cost_min, cost_max
 
 
-# ±äÁ¿³õÊ¼»¯º¯Êı
+# å˜é‡åˆå§‹åŒ–å‡½æ•°
 def clear():
     return 0, 0, 0, 0, 0, 0, 0, 100000000, 0, 0
 
@@ -98,16 +100,16 @@ while n <= pull:
             elif player_cost < pull_cost_min:
                 pull_cost_min = player_cost
             pull_cost_player = wc_player = 0
-            if n % 1000000 == 0:  # Ã¿100Íò³é¸üĞÂÒ»´Î½ø¶È
-                # ¼ÆËã½ø¶È°Ù·Ö±È
+            if n % 1000000 == 0:  # æ¯100ä¸‡æŠ½æ›´æ–°ä¸€æ¬¡è¿›åº¦
+                # è®¡ç®—è¿›åº¦ç™¾åˆ†æ¯”
                 elapsed = time.time() - start_time
                 progress = (n + 1) / (pull / 100)
-                # ¼ÆËãÒÑ¾­Íê³ÉµÄ½ø¶ÈÌõ³¤¶È
+                # è®¡ç®—å·²ç»å®Œæˆçš„è¿›åº¦æ¡é•¿åº¦
                 num_hashes = int(progress)
                 num_spaces = 100 - num_hashes
-                # ¹¹½¨½ø¶ÈÌõ×Ö·û´®
-                progress_bar = f"¼ÆËã½ø¶È£º{progress:.2f}%£¬Ô¤¼ÆÊ£Óà{(elapsed / progress * (100 - progress)) // 60:.0f}·Ö{(elapsed / progress * (100 - progress)) % 60:.0f}Ãë [{'¨€' * num_hashes}{'_' * num_spaces}]"
-                # ´òÓ¡½ø¶ÈÌõ£¬Ê¹ÓÃ \r ¸²¸ÇÖ®Ç°µÄÊä³ö
+                # æ„å»ºè¿›åº¦æ¡å­—ç¬¦ä¸²
+                progress_bar = f"è®¡ç®—è¿›åº¦ï¼š{progress:.2f}%ï¼Œé¢„è®¡å‰©ä½™{(elapsed / progress * (100 - progress)) // 60:.0f}åˆ†{(elapsed / progress * (100 - progress)) % 60:.0f}ç§’ [{'â–ˆ' * num_hashes}{'_' * num_spaces}]"
+                # æ‰“å°è¿›åº¦æ¡ï¼Œä½¿ç”¨ \r è¦†ç›–ä¹‹å‰çš„è¾“å‡º
                 print(f"\r{progress_bar}", end="")
         if multiple > 1:
             if multiple == 2:
@@ -132,28 +134,28 @@ while n <= pull:
     range_c = 0.6
     range_f = 5.1
     n += 1
-    c += 1  # ×ÔÉÏÒ»½ğºóµÄÀÛ¼Æ³éÊı
-    cc += 1  # ×ÔÉÏÒ»upºóµÄÀÛ¼Æ³éÊı
+    c += 1  # è‡ªä¸Šä¸€é‡‘åçš„ç´¯è®¡æŠ½æ•°
+    cc += 1  # è‡ªä¸Šä¸€upåçš„ç´¯è®¡æŠ½æ•°
     f += 1
     ff += 1
-    if c >= 74:  # ±£µ×
-        z += 1  # ½Ó½ü±£µ×Ê±µÄ¸ÅÂÊÀÛ¼Ó´ÎÊı
+    if c >= 74:  # ä¿åº•
+        z += 1  # æ¥è¿‘ä¿åº•æ—¶çš„æ¦‚ç‡ç´¯åŠ æ¬¡æ•°
         range_c *= z * 10 + 1
         if range_c > 100:
             range_c = 100
 
-    r = random.random()  # ³é¿¨
+    r = random.random()  # æŠ½å¡
 
-    if r * 100 <= range_c:  # ³ö½ğ
-        x += 1  # ÀÛ¼Æ³ö½ğÊı
+    if r * 100 <= range_c:  # å‡ºé‡‘
+        x += 1  # ç´¯è®¡å‡ºé‡‘æ•°
         multiple += 1
         # if c < 10:
-        #     double += 1  # Ê®Á¬Ë«»ÆÊı
+        #     double += 1  # åè¿åŒé»„æ•°
         if c > pull_max:
             pull_max = c
         if c < pull_min:
             pull_min = c
-        if lose == 1:  # ´ó±£µ×
+        if lose == 1:  # å¤§ä¿åº•
             range_cc = range_c
             all_wai += 1
             # light += 1
@@ -161,10 +163,10 @@ while n <= pull:
             range_cc = range_c * 11 / 20
             # if light > 0:
             #     light -= 1
-        if r * 100 <= range_cc or light >= 3:  # ³öup
-            wc += 1  # ÀÛ¼Æ³öupÊı
+        if r * 100 <= range_cc or light >= 3:  # å‡ºup
+            wc += 1  # ç´¯è®¡å‡ºupæ•°
             wc_player += 1
-            pull_cost += cc  # ÀÛ¼Æ³éÊı
+            pull_cost += cc  # ç´¯è®¡æŠ½æ•°
             pull_cost_player += cc
             if lose == 0:
                 buwai += 1
@@ -176,7 +178,7 @@ while n <= pull:
                 max_buwai = buwai
             # if light >= 3:
             #     light = 1
-            #     print("´¥·¢²¶»ñÃ÷¹â")
+            #     print("è§¦å‘æ•è·æ˜å…‰")
             c0[wc - 1] = cc
             if wc % 2 == 0:
                 c1[wc / 2 - 1] = c0[wc - 1] + c0[wc - 2]
@@ -191,7 +193,7 @@ while n <= pull:
                 cost_min = cc
             cc = 0
             lose = 0
-        else:  # Ğ¡±£µ×Íá
+        else:  # å°ä¿åº•æ­ª
             lose = 1
             wai += 1
             buwai = 0
@@ -199,8 +201,8 @@ while n <= pull:
                 max_wai = wai
         c = 0
         z = 0
-    else:  # Ã»³ö½ğÊ±ÔÙÌÖÂÛÊÇ·ñ³ö×Ï
-        r = random.random()  # ÖØĞÂ³é¿¨
+    else:  # æ²¡å‡ºé‡‘æ—¶å†è®¨è®ºæ˜¯å¦å‡ºç´«
+        r = random.random()  # é‡æ–°æŠ½å¡
         if f == 9:
             range_f = 56.1
         elif f >= 10:
@@ -209,78 +211,78 @@ while n <= pull:
             range_ff = range_f
         else:
             range_ff = range_f * 1 / 2
-        if r * 100 <= range_f:  # ³ö×Ï
+        if r * 100 <= range_f:  # å‡ºç´«
             x_f += 1
-            if r * 100 <= range_ff:  # ³öupËÄĞÇ
-                if r * 100 <= range_ff * 1 / 3:  # ³öÄ³Ò»upËÄĞÇ
-                    wc_f += 1  # ÀÛ¼Æ³öupËÄĞÇÊı
-                    pull_cost_f += ff  # ÀÛ¼Æ³éÊı
+            if r * 100 <= range_ff:  # å‡ºupå››æ˜Ÿ
+                if r * 100 <= range_ff * 1 / 3:  # å‡ºæŸä¸€upå››æ˜Ÿ
+                    wc_f += 1  # ç´¯è®¡å‡ºupå››æ˜Ÿæ•°
+                    pull_cost_f += ff  # ç´¯è®¡æŠ½æ•°
                     if ff > cost_max_f:
                         cost_max_f = ff
                     ff = 0
                 lose_f = 0
-            else:  # Ğ¡±£µ×Íá
+            else:  # å°ä¿åº•æ­ª
                 lose_f = 1
             f = 0
 n -= cc
 
-print("\rÊµ¼Ê³é¿¨", n, "³é£¬·ÖÌ¯¸ø", int(pull / player_pull), "ÃûÍæ¼Ò¸÷", player_pull, "³é£¬×îÅ·Íæ¼ÒÆ½¾ù»¨",
+print("\rå®é™…æŠ½å¡", n, "æŠ½ï¼Œåˆ†æ‘Šç»™", int(pull / player_pull), "åç©å®¶å„", player_pull, "æŠ½ï¼Œæœ€æ¬§ç©å®¶å¹³å‡èŠ±",
       pull_cost_min,
-      "Ô­Ê¯£¨", round((pull_cost_min / price), 1), "³é£©³öup½ÇÉ«£¬×î·ÇÍæ¼ÒÆ½¾ù»¨", pull_cost_max, "Ô­Ê¯£¨",
-      round((pull_cost_max / price), 1), "³é£©³öup½ÇÉ«")
-print("¹²³ö", x, "¸öÎåĞÇ½ÇÉ«£¬Æ½¾ù»¨", round((pull_cost / x) * price, 1), "Ô­Ê¯³ö½ğ£¬×ÛºÏ³öÂÊ", round(x * 100 / n, 3),
-      "%£¬ÆäÖĞupÎåĞÇ½ÇÉ«Õ¼±È", round((wc / x) * 100, 1), "%£¬Æ½¾ù»¨", round((pull_cost / wc) * price, 1),
-      "Ô­Ê¯³öupÎåĞÇ£¬×î¶à»¨",
-      cost_max * price, "Ô­Ê¯³öupÎåĞÇ£¬²»ÍáÂÊ", round((wc - all_wai) * 100 / wc, 2), "%£¬×î¶à", max_buwai, "Á¬²»Íá£¬×î¶à",
-      max_wai, "Á¬Íá")
-print("¹²³öÏÖ", multiple_2, "´ÎË«»Æ¡¢", multiple_3, "´ÎÈı»Æ¡¢", multiple_4, "´ÎËÄ»Æ¡¢", multiple_5, "´ÎÎå»Æ¡¢", multiple_6,
-      "´ÎÁù»Æ¡¢", multiple_7, "´ÎÆß»Æ¡¢", multiple_8, "´Î°Ë»Æ¡¢", multiple_9, "´Î¾Å»Æ¡¢", multiple_10, "´ÎÊ®»Æ")
-print("¹²³ö", x_f, "¸öËÄĞÇ£¬Æ½¾ù»¨", round((pull_cost_f / x_f) * price, 1), "Ô­Ê¯³ö×Ï£¬×ÛºÏ³öÂÊ", round(x_f * 100 / n, 3),
-      "%£¬ÆäÖĞÌØ¶¨upËÄĞÇ½ÇÉ«Õ¼±È", round((wc_f / x_f) * 100, 1),
-      "%£¬Æ½¾ù»¨", round((pull_cost_f / wc_f) * price, 1), "Ô­Ê¯³öÌØ¶¨upËÄĞÇ£¬×î¶à»¨", cost_max_f * price,
-      "Ô­Ê¯³öÌØ¶¨upËÄĞÇ")
+      "åŸçŸ³ï¼ˆ", round((pull_cost_min / price), 1), "æŠ½ï¼‰å‡ºupè§’è‰²ï¼Œæœ€éç©å®¶å¹³å‡èŠ±", pull_cost_max, "åŸçŸ³ï¼ˆ",
+      round((pull_cost_max / price), 1), "æŠ½ï¼‰å‡ºupè§’è‰²")
+print("å…±å‡º", x, "ä¸ªäº”æ˜Ÿè§’è‰²ï¼Œå¹³å‡èŠ±", round((pull_cost / x) * price, 1), "åŸçŸ³å‡ºé‡‘ï¼Œç»¼åˆå‡ºç‡", round(x * 100 / n, 3),
+      "%ï¼Œå…¶ä¸­upäº”æ˜Ÿè§’è‰²å æ¯”", round((wc / x) * 100, 1), "%ï¼Œå¹³å‡èŠ±", round((pull_cost / wc) * price, 1),
+      "åŸçŸ³å‡ºupäº”æ˜Ÿï¼Œæœ€å¤šèŠ±",
+      cost_max * price, "åŸçŸ³å‡ºupäº”æ˜Ÿï¼Œä¸æ­ªç‡", round((wc - all_wai) * 100 / wc, 2), "%ï¼Œæœ€å¤š", max_buwai, "è¿ä¸æ­ªï¼Œæœ€å¤š",
+      max_wai, "è¿æ­ª")
+print("å…±å‡ºç°", multiple_2, "æ¬¡åŒé»„ã€", multiple_3, "æ¬¡ä¸‰é»„ã€", multiple_4, "æ¬¡å››é»„ã€", multiple_5, "æ¬¡äº”é»„ã€", multiple_6,
+      "æ¬¡å…­é»„ã€", multiple_7, "æ¬¡ä¸ƒé»„ã€", multiple_8, "æ¬¡å…«é»„ã€", multiple_9, "æ¬¡ä¹é»„ã€", multiple_10, "æ¬¡åé»„")
+print("å…±å‡º", x_f, "ä¸ªå››æ˜Ÿï¼Œå¹³å‡èŠ±", round((pull_cost_f / x_f) * price, 1), "åŸçŸ³å‡ºç´«ï¼Œç»¼åˆå‡ºç‡", round(x_f * 100 / n, 3),
+      "%ï¼Œå…¶ä¸­ç‰¹å®šupå››æ˜Ÿè§’è‰²å æ¯”", round((wc_f / x_f) * 100, 1),
+      "%ï¼Œå¹³å‡èŠ±", round((pull_cost_f / wc_f) * price, 1), "åŸçŸ³å‡ºç‰¹å®šupå››æ˜Ÿï¼Œæœ€å¤šèŠ±", cost_max_f * price,
+      "åŸçŸ³å‡ºç‰¹å®šupå››æ˜Ÿ")
 (n, x, x_f, pull_c, pull_w, pull_cost, pull_cost_f, cost_min, cost_max, cost_max_f) = clear()
 
-range_c = 0.6  # ³ö½ğÂÊ
-range_cc = 0.3  # up½ÇÉ«³öÂÊ
+range_c = 0.6  # å‡ºé‡‘ç‡
+range_cc = 0.3  # upè§’è‰²å‡ºç‡
 range_w = 0.8  # 0.7
 range_ww = 0.6  # 0.525
 range_www = 0.2625
 lose = 0
 lose2 = 0
 z = 0
-wc = 0  # up½ÇÉ«Êı
-ww = 0  # upÎäÆ÷Êı
-www = 0  # ¶¨¹ìÎäÆ÷Êı
+wc = 0  # upè§’è‰²æ•°
+ww = 0  # upæ­¦å™¨æ•°
+www = 0  # å®šè½¨æ­¦å™¨æ•°
 c = 0
 cc = 0
 ccc = 0
 pull_num = 0
 pull_min = 10000000
 pull_max = 0
-price = 160  # Ã¿³éÏûºÄÔ­Ê¯
+price = 160  # æ¯æŠ½æ¶ˆè€—åŸçŸ³
 double = 0
 
 start_time = time.time()
 while n <= pull:
     if n % 1000000 == 0:
-        # ¼ÆËã½ø¶È°Ù·Ö±È
+        # è®¡ç®—è¿›åº¦ç™¾åˆ†æ¯”
         elapsed = time.time() - start_time
         progress = (n + 1) / (pull / 100)
-        # ¼ÆËãÒÑ¾­Íê³ÉµÄ½ø¶ÈÌõ³¤¶È
+        # è®¡ç®—å·²ç»å®Œæˆçš„è¿›åº¦æ¡é•¿åº¦
         num_hashes = int(progress)
         num_spaces = 100 - num_hashes
-        # ¹¹½¨½ø¶ÈÌõ×Ö·û´®
-        progress_bar = f"¼ÆËã½ø¶È£º{progress:.2f}%£¬Ô¤¼ÆÊ£Óà{elapsed / progress * (100 - progress):.1f}s [{'¨€' * num_hashes}{'_' * num_spaces}]"
-        # ´òÓ¡½ø¶ÈÌõ£¬Ê¹ÓÃ \r ¸²¸ÇÖ®Ç°µÄÊä³ö
+        # æ„å»ºè¿›åº¦æ¡å­—ç¬¦ä¸²
+        progress_bar = f"è®¡ç®—è¿›åº¦ï¼š{progress:.2f}%ï¼Œé¢„è®¡å‰©ä½™{elapsed / progress * (100 - progress):.1f}s [{'â–ˆ' * num_hashes}{'_' * num_spaces}]"
+        # æ‰“å°è¿›åº¦æ¡ï¼Œä½¿ç”¨ \r è¦†ç›–ä¹‹å‰çš„è¾“å‡º
         print(f"\r{progress_bar}", end="")
     range_w = 0.7  # 0.8
     n += 1
     c += 1
     cc += 1
     ccc += 1
-    if c >= 63:  # 67:  # ±£µ×
-        z += 1  # ¸ÅÂÊÀÛ¼Ó´ÎÊı
+    if c >= 63:  # 67:  # ä¿åº•
+        z += 1  # æ¦‚ç‡ç´¯åŠ æ¬¡æ•°
         range_w *= z * 10 + 1
         # if c <= 70:  # 73:
         #     range_w *= z * 14 + 1  # 10 + 1
@@ -288,13 +290,13 @@ while n <= pull:
         #     range_w *= z * 7 + 45.6  # 5 + 56
         if range_w > 100:
             range_w = 100
-    if lose == 1:  # ´ó±£µ×
+    if lose == 1:  # å¤§ä¿åº•
         range_ww = range_w
-        if lose2 == 1:  # Âú¶¨¹ì
+        if lose2 == 1:  # æ»¡å®šè½¨
             range_www = range_w
         else:
             range_www = range_ww / 2
-    elif lose2 == 1:  # Âú¶¨¹ì
+    elif lose2 == 1:  # æ»¡å®šè½¨
         range_ww = range_w
         range_www = range_w
     else:
@@ -302,18 +304,18 @@ while n <= pull:
         range_www = range_ww / 2
     r = random.random()
 
-    if r * 100 <= range_w:  # ³ö½ğ
+    if r * 100 <= range_w:  # å‡ºé‡‘
         x += 1
         # if c < 10:
         #     double += 1
-        if r * 100 <= range_ww:  # ³öup
+        if r * 100 <= range_ww:  # å‡ºup
             if c > pull_max:
                 pull_max = c
             if c < pull_min:
                 pull_min = c
             ww += 1
             up[ww - 1] = cc
-            if r * 100 <= range_www:  # ³ö¶¨¹ì
+            if r * 100 <= range_www:  # å‡ºå®šè½¨
                 www += 1
                 dg[www - 1] = ccc
                 pull_cost += ccc
@@ -325,59 +327,59 @@ while n <= pull:
                 if lose2 == 0:
                     lose = 0
                 lose2 = 0
-            else:  # ³ö·Ç¶¨¹ì
+            else:  # å‡ºéå®šè½¨
                 lose = 0
                 lose2 += 1
             cc = 0
-        else:  # Ğ¡±£µ×Íá
+        else:  # å°ä¿åº•æ­ª
             lose = 1
             lose2 += 1
         c = 0
         z = 0
 
-print("\r¹²³ö", x, "°ÑÎåĞÇÎäÆ÷£¬Æ½¾ù»¨", round((pull_cost / x) * price, 1), "Ô­Ê¯³ö½ğ£¬×ÛºÏ³öÂÊ", round(x * 100 / n, 3),
-      "%£¬ÆäÖĞupÎäÆ÷Õ¼±È",
-      round((ww / x) * 100, 1), "%£¬Æ½¾ù»¨", round((pull_cost / ww) * price, 1), "Ô­Ê¯³öupÎäÆ÷£»¶¨¹ìÕ¼±È",
+print("\rå…±å‡º", x, "æŠŠäº”æ˜Ÿæ­¦å™¨ï¼Œå¹³å‡èŠ±", round((pull_cost / x) * price, 1), "åŸçŸ³å‡ºé‡‘ï¼Œç»¼åˆå‡ºç‡", round(x * 100 / n, 3),
+      "%ï¼Œå…¶ä¸­upæ­¦å™¨å æ¯”",
+      round((ww / x) * 100, 1), "%ï¼Œå¹³å‡èŠ±", round((pull_cost / ww) * price, 1), "åŸçŸ³å‡ºupæ­¦å™¨ï¼›å®šè½¨å æ¯”",
       round((www / x) * 100, 1),
-      "%£¬Æ½¾ù»¨", round((pull_cost / www) * price, 1), "Ô­Ê¯³ö¶¨¹ì£»×î¶à»¨", cost_max * price, "Ô­Ê¯³ö¶¨¹ì")
+      "%ï¼Œå¹³å‡èŠ±", round((pull_cost / www) * price, 1), "åŸçŸ³å‡ºå®šè½¨ï¼›æœ€å¤šèŠ±", cost_max * price, "åŸçŸ³å‡ºå®šè½¨")
 (n, x, x_f, pull_c, pull_w, pull_cost, pull_cost_f, cost_min, cost_max, cost_max_f) = clear()
 
-save = int(input("ÇëÊäÈëËù³ÖÔ­Ê¯Êı£º"))  # Ô­Ê¯»ıĞî
+save = int(input("è¯·è¾“å…¥æ‰€æŒåŸçŸ³æ•°ï¼š"))  # åŸçŸ³ç§¯è“„
 
 while pull_c < len(c0):
     (n, x, pull_c, pull_cost, cost_min, cost_max) = count(n, x, pull_c, c0[pull_c], pull_cost, cost_min, cost_max)
-print("0Ãü¹²ÓĞ", n, "ÖÖ¿ÉÄÜĞÔ£¬±£³ö¸ÅÂÊ:", round((1 - x / n) * 100, 1),
-      "%£¬Æ½¾ù»¨·Ñ", round(pull_cost / n, 1), "£¬×îÉÙ»¨·Ñ", cost_min, "£¬×î¶à»¨·Ñ", cost_max)
+print("0å‘½å…±æœ‰", n, "ç§å¯èƒ½æ€§ï¼Œä¿å‡ºæ¦‚ç‡:", round((1 - x / n) * 100, 1),
+      "%ï¼Œå¹³å‡èŠ±è´¹", round(pull_cost / n, 1), "ï¼Œæœ€å°‘èŠ±è´¹", cost_min, "ï¼Œæœ€å¤šèŠ±è´¹", cost_max)
 (n, x, x_f, pull_c, pull_w, pull_cost, pull_cost_f, cost_min, cost_max, cost_max_f) = clear()
 
 while pull_c < len(c1):
     (n, x, pull_c, pull_cost, cost_min, cost_max) = count(n, x, pull_c, c1[pull_c], pull_cost, cost_min, cost_max)
-print("1Ãü¹²ÓĞ", n, "ÖÖ¿ÉÄÜĞÔ£¬±£³ö¸ÅÂÊ:", round((1 - x / n) * 100, 1),
-      "%£¬Æ½¾ù»¨·Ñ", round(pull_cost / n, 1), "£¬×îÉÙ»¨·Ñ", cost_min, "£¬×î¶à»¨·Ñ", cost_max)
+print("1å‘½å…±æœ‰", n, "ç§å¯èƒ½æ€§ï¼Œä¿å‡ºæ¦‚ç‡:", round((1 - x / n) * 100, 1),
+      "%ï¼Œå¹³å‡èŠ±è´¹", round(pull_cost / n, 1), "ï¼Œæœ€å°‘èŠ±è´¹", cost_min, "ï¼Œæœ€å¤šèŠ±è´¹", cost_max)
 (n, x, x_f, pull_c, pull_w, pull_cost, pull_cost_f, cost_min, cost_max, cost_max_f) = clear()
 
 while pull_c < len(c2):
     (n, x, pull_c, pull_cost, cost_min, cost_max) = count(n, x, pull_c, c2[pull_c], pull_cost, cost_min, cost_max)
-print("2Ãü¹²ÓĞ", n, "ÖÖ¿ÉÄÜĞÔ£¬±£³ö¸ÅÂÊ:", round((1 - x / n) * 100, 1),
-      "%£¬Æ½¾ù»¨·Ñ", round(pull_cost / n, 1), "£¬×îÉÙ»¨·Ñ", cost_min, "£¬×î¶à»¨·Ñ", cost_max)
+print("2å‘½å…±æœ‰", n, "ç§å¯èƒ½æ€§ï¼Œä¿å‡ºæ¦‚ç‡:", round((1 - x / n) * 100, 1),
+      "%ï¼Œå¹³å‡èŠ±è´¹", round(pull_cost / n, 1), "ï¼Œæœ€å°‘èŠ±è´¹", cost_min, "ï¼Œæœ€å¤šèŠ±è´¹", cost_max)
 (n, x, x_f, pull_c, pull_w, pull_cost, pull_cost_f, cost_min, cost_max, cost_max_f) = clear()
 
 while pull_c < len(c6):
     (n, x, pull_c, pull_cost, cost_min, cost_max) = count(n, x, pull_c, c6[pull_c], pull_cost, cost_min, cost_max)
-print("6Ãü¹²ÓĞ", n, "ÖÖ¿ÉÄÜĞÔ£¬±£³ö¸ÅÂÊ:", round((1 - x / n) * 100, 1),
-      "%£¬Æ½¾ù»¨·Ñ", round(pull_cost / n, 1), "£¬×îÉÙ»¨·Ñ", cost_min, "£¬×î¶à»¨·Ñ", cost_max)
+print("6å‘½å…±æœ‰", n, "ç§å¯èƒ½æ€§ï¼Œä¿å‡ºæ¦‚ç‡:", round((1 - x / n) * 100, 1),
+      "%ï¼Œå¹³å‡èŠ±è´¹", round(pull_cost / n, 1), "ï¼Œæœ€å°‘èŠ±è´¹", cost_min, "ï¼Œæœ€å¤šèŠ±è´¹", cost_max)
 (n, x, x_f, pull_c, pull_w, pull_cost, pull_cost_f, cost_min, cost_max, cost_max_f) = clear()
 
 # while pull_w < len(up):
 #     (n, x, pull_w, pull_cost, cost_min, cost_max) = count(n, x, pull_w, up[pull_w], pull_cost, cost_min, cost_max)
-# print("upÎäÆ÷¹²ÓĞ", n, "ÖÖ¿ÉÄÜĞÔ£¬±£³ö¸ÅÂÊ:", round((1 - x / n) * 100, 1),
-#       "%£¬Æ½¾ù»¨·Ñ", round(pull_cost / n, 1), "£¬×îÉÙ»¨·Ñ", cost_min, "£¬×î¶à»¨·Ñ", cost_max)
+# print("upæ­¦å™¨å…±æœ‰", n, "ç§å¯èƒ½æ€§ï¼Œä¿å‡ºæ¦‚ç‡:", round((1 - x / n) * 100, 1),
+#       "%ï¼Œå¹³å‡èŠ±è´¹", round(pull_cost / n, 1), "ï¼Œæœ€å°‘èŠ±è´¹", cost_min, "ï¼Œæœ€å¤šèŠ±è´¹", cost_max)
 # (n, x, pull_c, pull_w, pull_cost, cost_min, cost_max) = clear()
 
 # while pull_w < len(dg):
 #     (n, x, pull_w, pull_cost, cost_min, cost_max) = count(n, x, pull_w, dg[pull_w], pull_cost, cost_min, cost_max)
-# print("¶¨¹ìÎäÆ÷¹²ÓĞ", n, "ÖÖ¿ÉÄÜĞÔ£¬±£³ö¸ÅÂÊ:", round((1 - x / n) * 100, 1),
-#       "%£¬Æ½¾ù»¨·Ñ", round(pull_cost / n, 1), "£¬×îÉÙ»¨·Ñ", cost_min, "£¬×î¶à»¨·Ñ", cost_max)
+# print("å®šè½¨æ­¦å™¨å…±æœ‰", n, "ç§å¯èƒ½æ€§ï¼Œä¿å‡ºæ¦‚ç‡:", round((1 - x / n) * 100, 1),
+#       "%ï¼Œå¹³å‡èŠ±è´¹", round(pull_cost / n, 1), "ï¼Œæœ€å°‘èŠ±è´¹", cost_min, "ï¼Œæœ€å¤šèŠ±è´¹", cost_max)
 # (n, x, pull_c, pull_w, pull_cost, cost_min, cost_max) = clear()
 
 # while pull_c < len(c0):
@@ -386,8 +388,8 @@ print("6Ãü¹²ÓĞ", n, "ÖÖ¿ÉÄÜĞÔ£¬±£³ö¸ÅÂÊ:", round((1 - x / n) * 100, 1),
 #                                                               cost_min, cost_max)
 #     pull_c += 1
 #     pull_w = 0
-# print("0Ãü+upÎäÆ÷¹²ÓĞ", n, "ÖÖ¿ÉÄÜĞÔ£¬±£³ö¸ÅÂÊ:", round((1 - x / n) * 100, 1),
-#       "%£¬Æ½¾ù»¨·Ñ", round(pull_cost / n, 1), "£¬×îÉÙ»¨·Ñ", cost_min, "£¬×î¶à»¨·Ñ", cost_max)
+# print("0å‘½+upæ­¦å™¨å…±æœ‰", n, "ç§å¯èƒ½æ€§ï¼Œä¿å‡ºæ¦‚ç‡:", round((1 - x / n) * 100, 1),
+#       "%ï¼Œå¹³å‡èŠ±è´¹", round(pull_cost / n, 1), "ï¼Œæœ€å°‘èŠ±è´¹", cost_min, "ï¼Œæœ€å¤šèŠ±è´¹", cost_max)
 # (n, x, pull_c, pull_w, pull_cost, cost_min, cost_max) = clear()
 
 # while pull_c < len(c0):
@@ -396,8 +398,8 @@ print("6Ãü¹²ÓĞ", n, "ÖÖ¿ÉÄÜĞÔ£¬±£³ö¸ÅÂÊ:", round((1 - x / n) * 100, 1),
 #                                                               cost_min, cost_max)
 #     pull_c += 1
 #     pull_w = 0
-# print("0Ãü+¶¨¹ìÎäÆ÷¹²ÓĞ", n, "ÖÖ¿ÉÄÜĞÔ£¬±£³ö¸ÅÂÊ:", round((1 - x / n) * 100, 1),
-#       "%£¬Æ½¾ù»¨·Ñ", round(pull_cost / n, 1), "£¬×îÉÙ»¨·Ñ", cost_min, "£¬×î¶à»¨·Ñ", cost_max)
+# print("0å‘½+å®šè½¨æ­¦å™¨å…±æœ‰", n, "ç§å¯èƒ½æ€§ï¼Œä¿å‡ºæ¦‚ç‡:", round((1 - x / n) * 100, 1),
+#       "%ï¼Œå¹³å‡èŠ±è´¹", round(pull_cost / n, 1), "ï¼Œæœ€å°‘èŠ±è´¹", cost_min, "ï¼Œæœ€å¤šèŠ±è´¹", cost_max)
 # (n, x, pull_c, pull_w, pull_cost, cost_min, cost_max) = clear()
 
 # while pull_c < len(c1):
@@ -406,8 +408,8 @@ print("6Ãü¹²ÓĞ", n, "ÖÖ¿ÉÄÜĞÔ£¬±£³ö¸ÅÂÊ:", round((1 - x / n) * 100, 1),
 #                                                               cost_min, cost_max)
 #     pull_c += 1
 #     pull_w = 0
-# print("1Ãü+upÎäÆ÷¹²ÓĞ", n, "ÖÖ¿ÉÄÜĞÔ£¬±£³ö¸ÅÂÊ:", round((1 - x / n) * 100, 1),
-#       "%£¬Æ½¾ù»¨·Ñ", round(pull_cost / n, 1), "£¬×îÉÙ»¨·Ñ", cost_min, "£¬×î¶à»¨·Ñ", cost_max)
+# print("1å‘½+upæ­¦å™¨å…±æœ‰", n, "ç§å¯èƒ½æ€§ï¼Œä¿å‡ºæ¦‚ç‡:", round((1 - x / n) * 100, 1),
+#       "%ï¼Œå¹³å‡èŠ±è´¹", round(pull_cost / n, 1), "ï¼Œæœ€å°‘èŠ±è´¹", cost_min, "ï¼Œæœ€å¤šèŠ±è´¹", cost_max)
 # (n, x, pull_c, pull_w, pull_cost, cost_min, cost_max) = clear()
 
 # while pull_c < len(c1):
@@ -416,8 +418,8 @@ print("6Ãü¹²ÓĞ", n, "ÖÖ¿ÉÄÜĞÔ£¬±£³ö¸ÅÂÊ:", round((1 - x / n) * 100, 1),
 #                                                               cost_min, cost_max)
 #     pull_c += 1
 #     pull_w = 0
-# print("1Ãü+¶¨¹ìÎäÆ÷¹²ÓĞ", n, "ÖÖ¿ÉÄÜĞÔ£¬±£³ö¸ÅÂÊ:", round((1 - x / n) * 100, 1),
-#       "%£¬Æ½¾ù»¨·Ñ", round(pull_cost / n, 1), "£¬×îÉÙ»¨·Ñ", cost_min, "£¬×î¶à»¨·Ñ", cost_max)
+# print("1å‘½+å®šè½¨æ­¦å™¨å…±æœ‰", n, "ç§å¯èƒ½æ€§ï¼Œä¿å‡ºæ¦‚ç‡:", round((1 - x / n) * 100, 1),
+#       "%ï¼Œå¹³å‡èŠ±è´¹", round(pull_cost / n, 1), "ï¼Œæœ€å°‘èŠ±è´¹", cost_min, "ï¼Œæœ€å¤šèŠ±è´¹", cost_max)
 # (n, x, pull_c, pull_w, pull_cost, cost_min, cost_max) = clear()
 
 # while pull_c < len(c2):
@@ -426,8 +428,8 @@ print("6Ãü¹²ÓĞ", n, "ÖÖ¿ÉÄÜĞÔ£¬±£³ö¸ÅÂÊ:", round((1 - x / n) * 100, 1),
 #                                                               cost_min, cost_max)
 #     pull_c += 1
 #     pull_w = 0
-# print("2Ãü+upÎäÆ÷¹²ÓĞ", n, "ÖÖ¿ÉÄÜĞÔ£¬±£³ö¸ÅÂÊ:", round((1 - x / n) * 100, 1),
-#       "%£¬Æ½¾ù»¨·Ñ", round(pull_cost / n, 1), "£¬×îÉÙ»¨·Ñ", cost_min, "£¬×î¶à»¨·Ñ", cost_max)
+# print("2å‘½+upæ­¦å™¨å…±æœ‰", n, "ç§å¯èƒ½æ€§ï¼Œä¿å‡ºæ¦‚ç‡:", round((1 - x / n) * 100, 1),
+#       "%ï¼Œå¹³å‡èŠ±è´¹", round(pull_cost / n, 1), "ï¼Œæœ€å°‘èŠ±è´¹", cost_min, "ï¼Œæœ€å¤šèŠ±è´¹", cost_max)
 # (n, x, pull_c, pull_w, pull_cost, cost_min, cost_max) = clear()
 
 # while pull_c < len(c2):
@@ -436,6 +438,6 @@ print("6Ãü¹²ÓĞ", n, "ÖÖ¿ÉÄÜĞÔ£¬±£³ö¸ÅÂÊ:", round((1 - x / n) * 100, 1),
 #                                                               cost_min, cost_max)
 #     pull_c += 1
 #     pull_w = 0
-# print("2Ãü+¶¨¹ìÎäÆ÷¹²ÓĞ", n, "ÖÖ¿ÉÄÜĞÔ£¬±£³ö¸ÅÂÊ:", round((1 - x / n) * 100, 1),
-#       "%£¬Æ½¾ù»¨·Ñ", round(pull_cost / n, 1), "£¬×îÉÙ»¨·Ñ", cost_min, "£¬×î¶à»¨·Ñ", cost_max)
+# print("2å‘½+å®šè½¨æ­¦å™¨å…±æœ‰", n, "ç§å¯èƒ½æ€§ï¼Œä¿å‡ºæ¦‚ç‡:", round((1 - x / n) * 100, 1),
+#       "%ï¼Œå¹³å‡èŠ±è´¹", round(pull_cost / n, 1), "ï¼Œæœ€å°‘èŠ±è´¹", cost_min, "ï¼Œæœ€å¤šèŠ±è´¹", cost_max)
 # (n, x, pull_c, pull_w, pull_cost, cost_min, cost_max) = clear()
